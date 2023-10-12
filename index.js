@@ -32,3 +32,7 @@ image.onload = () => {
     )
 }
 
+// do the dog thing sprite movement
+window.addEventListener("keydown", (e) => {
+    console.log(e)
+})
