@@ -11,10 +11,9 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 const image = new Image()
 image.src = "./images/bg.png"
 
-//i wonder if we can take these sprites and change this code up?? //
-const playerImage = new Image()
-playerImage.src = "./images/playerDown.png"
 
+const playerImage = new Image()
+playerImage.src = "./images/charDown.png"
 
 
 image.onload = () => {
@@ -25,14 +24,12 @@ image.onload = () => {
         0,
         playerImage.width / 4,
         playerImage.height,
-        canvas.width / 2 - playerImage.width / 4, //take a look at these too pls
-        canvas.height / 2 - playerImage.height / 2,
-        playerImage.width / 4,
-        playerImage.height,
+        // canvas.width / 2 - playerImage.width / 4, //take a look at these too pls
+        // canvas.height / 2 - playerImage.height / 2, 
+        0,
+        0,
+        playerImage.width / 8,
+        playerImage.height / 2,
     )
 }
 
-// do the dog thing sprite movement
-window.addEventListener("keydown", (e) => {
-    console.log(e)
-})
