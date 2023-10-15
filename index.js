@@ -29,8 +29,8 @@ class Boundary {
 
 const boundaries = []
 const offset = {
-    x: -2430,
-    y: -990
+    x: -2300,
+    y: -945
 }
 
 
@@ -115,8 +115,8 @@ function animate() {
         -200,
         playerImage.width / 4,
         playerImage.height,
-        canvas.width / 2 - playerImage.width / 4, //take a look at these too pls
-        canvas.height / 2 - playerImage.height / 2, 
+        canvas.width / 2 - playerImage.width / 25, //take a look at these too pls
+        canvas.height / 2 - playerImage.height / 2.3, 
         playerImage.width / 8,
         playerImage.height / 2,
     )
@@ -125,12 +125,12 @@ function animate() {
 
 if (keys.w.pressed && lastKey === 'w') {
     movables.forEach((movable) => {
-        movable.position.y += 5
+        movable.position.y += 3
     })
-    testBoundary.position.y += 5
-  } else if (keys.a.pressed && lastKey === 'a') background.position.x += 5
-  else if (keys.s.pressed && lastKey === 's') background.position.y -= 5
-  else if (keys.d.pressed && lastKey === 'd') background.position.x -= 5
+    testBoundary.position.y += 3.5
+  } else if (keys.a.pressed && lastKey === 'a') background.position.x += 3
+  else if (keys.s.pressed && lastKey === 's') background.position.y -= 3
+  else if (keys.d.pressed && lastKey === 'd') background.position.x -= 3
 }
 
 animate()
