@@ -10,6 +10,7 @@ for (let i = 0; i < collisions.length; i += 70) {
     collisionsMap.push(collisions.slice(i, 70 + i))
 }
 
+
 class Boundary {
     static height = 48
     static width = 48
@@ -70,6 +71,17 @@ class Sprite {
 
 draw() {
     c.drawImage(this.image, this.position.x, this.position.y)
+    c.drawImage (
+        playerImage,
+        0,
+        -200,
+        playerImage.width / 4,
+        playerImage.height,
+        canvas.width / 2 - playerImage.width / 25, //take a look at these too pls
+        canvas.height / 2 - playerImage.height / 2.3, 
+        playerImage.width / 8,
+        playerImage.height / 2,
+    )
 }
 
 }
@@ -109,28 +121,27 @@ function animate() {
     window.requestAnimationFrame (animate) // you might need to change this
     background.draw()
     testBoundary.draw()
-    c.drawImage (
-        playerImage,
-        0,
-        -200,
-        playerImage.width / 4,
-        playerImage.height,
-        canvas.width / 2 - playerImage.width / 25, //take a look at these too pls
-        canvas.height / 2 - playerImage.height / 2.3, 
-        playerImage.width / 8,
-        playerImage.height / 2,
-    )
+    
 
-
+//if (playerImage.position.x + player.width)
 
 if (keys.w.pressed && lastKey === 'w') {
     movables.forEach((movable) => {
-        movable.position.y += 3
+     movable.position.y += 3
     })
-    testBoundary.position.y += 3.5
-  } else if (keys.a.pressed && lastKey === 'a') background.position.x += 3
-  else if (keys.s.pressed && lastKey === 's') background.position.y -= 3
-  else if (keys.d.pressed && lastKey === 'd') background.position.x -= 3
+} else if (keys.a.pressed && lastKey === 'a') {
+    movables.forEach((movable) => {
+     movable.position.x += 3
+  })
+} else if (keys.s.pressed && lastKey === 's') {
+    movables.forEach((movable) => {
+     movable.position.y -= 3
+  })
+} else if (keys.d.pressed && lastKey === 'd') {
+    movables.forEach((movable) => {
+     movable.position.x -= 3
+    })
+}
 }
 
 animate()
