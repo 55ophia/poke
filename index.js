@@ -31,7 +31,7 @@ class Boundary {
 const boundaries = []
 const offset = {
     x: -2300,
-    y: -945
+    y: -930
 }
 
 
@@ -50,45 +50,58 @@ collisionsMap.forEach((row, i) => {
 })
 
 
-console.log(boundaries)
-
-
 const image = new Image()
 image.src = "./images/bg.png"
 
 
 const playerImage = new Image()
-playerImage.src = "./images/charDown.png"
+playerImage.src = "./images/down.png"
 
 class Sprite {
-  constructor({position, velocity, image}) {
+  constructor({position, velocity, image, frames = { max: 1 }}) {
     this.position = position
     this.image = image
+    this.frames = frames
+
+    this.image.onload = () => {
+    this.width = this.image.width / this.frames.max
+    this.height = this.image.height
+     console.log(this.width);
+     console.log(this.height);
+    }
   }
 
-
-
-
 draw() {
-    c.drawImage(this.image, this.position.x, this.position.y)
     c.drawImage (
-        playerImage,
+        this.image,
         0,
-        -200,
-        playerImage.width / 4,
-        playerImage.height,
-        canvas.width / 2 - playerImage.width / 25, //take a look at these too pls
-        canvas.height / 2 - playerImage.height / 2.3, 
-        playerImage.width / 8,
-        playerImage.height / 2,
+        0,
+        this.image.width / this.frames.max,
+        this.image.height,
+        this.position.x,
+        this.position.y,
+        this.image.width / this.frames.max,
+        this.image.height,
     )
+  }
 }
 
-}
+
+const player = new Sprite({
+    position: {
+        x: canvas.width / 2 - 192 / 4 / 2,
+        y: canvas.height / 2 - 68 / 2,
+    },
+    image: playerImage,
+    frames: {
+        max: 4
+    }
+})
+
 
 const background = new Sprite({
     position: {
-        x: offset.x,
+        x:offset.x,
         y:offset.y
     },
     image: image
@@ -121,9 +134,12 @@ function animate() {
     window.requestAnimationFrame (animate) // you might need to change this
     background.draw()
     testBoundary.draw()
+    player.draw()
     
 
-//if (playerImage.position.x + player.width)
+if (player.position.x + player.width >= testBoundary.position.x && player.position.x <= testBoundary.position + testBoundary.width) {
+    console.log('colliding')
+}
 
 if (keys.w.pressed && lastKey === 'w') {
     movables.forEach((movable) => {
