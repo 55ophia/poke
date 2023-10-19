@@ -46,11 +46,17 @@ const foregroundImage = new Image()
 foregroundImage.src = "./images/foreground.png"
 
 
-const playerImage = new Image()
-playerImage.src = "./images/down.png"
+const playerDown = new Image()
+playerDown.src = "./images/down.png"
 
+const playerUp = new Image()
+playerUp.src = "./images/up.png"
 
+const playerLeft = new Image()
+playerLeft.src = "./images/left.png"
 
+const playerRight = new Image()
+playerRight.src = "./images/right.png"
 
 
 const player = new Sprite({
@@ -58,9 +64,15 @@ const player = new Sprite({
         x: canvas.width / 2 - 192 / 4 / 2,
         y: canvas.height / 2 - 68 / 2,
     },
-    image: playerImage,
+    image: playerDown,
     frames: {
         max: 4
+    },
+    sprites: {
+        up: playerUp,
+        left: playerLeft,
+        right: playerRight,
+        down: playerDown,
     }
 })
 
@@ -127,6 +139,7 @@ let moving = true
 player.moving = false
 if (keys.w.pressed && lastKey === 'w') {
     player.moving = true
+    player.image = player.sprites.up
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
         if (
@@ -152,6 +165,7 @@ if (keys.w.pressed && lastKey === 'w') {
         })
 } else if (keys.a.pressed && lastKey === 'a') {
     player.moving = true
+    player.image = player.sprites.left
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
         if (
@@ -177,6 +191,7 @@ if (keys.w.pressed && lastKey === 'w') {
   })
 } else if (keys.s.pressed && lastKey === 's') {
     player.moving = true
+    player.image = player.sprites.down
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
         if (
@@ -203,6 +218,7 @@ if (keys.w.pressed && lastKey === 'w') {
 } else if (keys.d.pressed && lastKey === 'd') {
     for (let i = 0; i < boundaries.length; i++) {
         player.moving = true
+        player.image = player.sprites.right
         const boundary = boundaries[i]
         if (
             rectangularCollision({
