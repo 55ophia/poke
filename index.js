@@ -12,22 +12,6 @@ for (let i = 0; i < collisions.length; i += 70) {
 }
  
 
-class Boundary {
-    static height = 48
-    static width = 48
-    constructor({position}) {
-        this.position = position
-        this.width = 48
-        this.height = 48
-    }
-
-
-    draw() {
-        c.fillStyle = "rgba(255, 0, 0, 0.0"
-        c.fillRect(this.position.x, this.position.y, this.width, this.height)
-    }
-}
-
 
 const boundaries = []
 const offset = {
@@ -58,42 +42,13 @@ collisionsMap.forEach((row, i) => {
 const image = new Image()
 image.src = "./images/bg.png"
 
-
+const foregroundImage = new Image()
+foregroundImage.src = "./images/foreground.png"
 
 
 const playerImage = new Image()
 playerImage.src = "./images/down.png"
 
-
-class Sprite {
-  constructor({ position, velocity, image, frames = { max: 1 }}) {
-    this.position = position
-    this.image = image
-    this.frames = frames
-    
-    this.image.onload = () => {
-    this.width = this.image.width / this.frames.max
-    this.height = this.image.height
-     console.log(this.width);
-     console.log(this.height);
-    }
-  }
-
-
-draw() {
-    c.drawImage (
-        this.image,
-        0,
-        0,
-        this.image.width / this.frames.max,
-        this.image.height,
-        this.position.x,
-        this.position.y,
-        this.image.width / this.frames.max,
-        this.image.height,
-    )
-  }
-}
 
 
 
@@ -120,6 +75,14 @@ const background = new Sprite({
     image: image
 })
 
+const foreground = new Sprite({
+    position: {
+        x: offset.x,
+        y: offset.y
+    },
+    image: foregroundImage
+})
+
 
 const keys = {
     w: {
@@ -139,7 +102,7 @@ const keys = {
 
 
 
-const movables = [background, ...boundaries]
+const movables = [background, ...boundaries, foreground]
 
 function rectangularCollision({rectangle1, rectangle2}) {
     return(
@@ -157,10 +120,13 @@ function animate() {
         boundary.draw()
     })
     player.draw()
+    foreground.draw()
 
 
 let moving = true
+player.moving = false
 if (keys.w.pressed && lastKey === 'w') {
+    player.moving = true
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
         if (
@@ -185,6 +151,7 @@ if (keys.w.pressed && lastKey === 'w') {
             movable.position.y += 3
         })
 } else if (keys.a.pressed && lastKey === 'a') {
+    player.moving = true
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
         if (
@@ -209,6 +176,7 @@ if (keys.w.pressed && lastKey === 'w') {
      movable.position.x += 3
   })
 } else if (keys.s.pressed && lastKey === 's') {
+    player.moving = true
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
         if (
@@ -234,6 +202,7 @@ if (keys.w.pressed && lastKey === 'w') {
   })
 } else if (keys.d.pressed && lastKey === 'd') {
     for (let i = 0; i < boundaries.length; i++) {
+        player.moving = true
         const boundary = boundaries[i]
         if (
             rectangularCollision({
