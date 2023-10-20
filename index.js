@@ -42,7 +42,21 @@ collisionsMap.forEach((row, i) => {
 
 
 const battleZones = []
+battleZonesMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+      if (symbol === 1025)
+        battleZones.push(
+         new Boundary({
+            position: {
+            x: j * Boundary.width + offset.x,
+            y: i * Boundary.height + offset.y
+        }
+      })
+    )
+  })
+})
 
+console.log(battleZones)
 const image = new Image()
 image.src = "./images/bg.png"
 
@@ -121,7 +135,7 @@ const keys = {
 
 
 
-const movables = [background, ...boundaries, foreground]
+const movables = [background, ...boundaries, foreground, ...battleZones]
 
 function rectangularCollision({rectangle1, rectangle2}) {
     return(
@@ -138,9 +152,26 @@ function animate() {
     boundaries.forEach((boundary) => {
         boundary.draw()
     })
+    battleZones.forEach(battleZone => {
+        battleZone.draw()
+    })
     player.draw()
     foreground.draw()
 
+    if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
+        for (let i = 0; i < battleZones.length; i++) {
+            const battleZone = battleZones[i]
+            if (
+                rectangularCollision({
+                    rectangle1: player,
+                    rectangle2: battleZone
+                })
+            ) {
+                console.log('battle zone collision');
+                break
+            }
+        }
+    }
 
 let moving = true
 player.moving = false
