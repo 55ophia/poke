@@ -10,8 +10,12 @@ const collisionsMap = []
 for (let i = 0; i < collisions.length; i += 70) {
     collisionsMap.push(collisions.slice(i, 70 + i))
 }
- 
 
+const battleZonesMap = []
+for (let i = 0; i < battleZonesData.length; i += 70) {
+    battleZonesMap.push(battleZonesData.slice(i, 70 + i))
+}
+ 
 
 const boundaries = []
 const offset = {
@@ -37,7 +41,7 @@ collisionsMap.forEach((row, i) => {
 })
 
 
-
+const battleZones = []
 
 const image = new Image()
 image.src = "./images/bg.png"
