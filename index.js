@@ -46,6 +46,7 @@ const foregroundImage = new Image()
 foregroundImage.src = "./images/foreground.png"
 
 
+
 const playerDown = new Image()
 playerDown.src = "./images/down.png"
 
@@ -57,6 +58,8 @@ playerLeft.src = "./images/left.png"
 
 const playerRight = new Image()
 playerRight.src = "./images/right.png"
+
+
 
 
 const player = new Sprite({
