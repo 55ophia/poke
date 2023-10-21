@@ -1,6 +1,10 @@
 const canvas = document.querySelector("canvas")
 const c = canvas.getContext("2d")
 
+gsap.to("#overlappingDiv", {
+   opacity: 1, 
+   repeat: 2,
+})
 
 canvas.width = 1024
 canvas.height = 576
@@ -62,8 +66,6 @@ image.src = "./images/bg.png"
 
 const foregroundImage = new Image()
 foregroundImage.src = "./images/foreground.png"
-
-
 
 const playerDown = new Image()
 playerDown.src = "./images/down.png"
@@ -146,6 +148,11 @@ function rectangularCollision({rectangle1, rectangle2}) {
     
     )
 }
+const battle = {
+    initiated: false
+}
+
+
 function animate() {
     window.requestAnimationFrame (animate) // you might need to change this
     background.draw()
@@ -157,24 +164,42 @@ function animate() {
     })
     player.draw()
     foreground.draw()
-
+    
+     let moving = true
+     player.moving = false
+    if (battle.initiated) return
+//battleativae
     if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
         for (let i = 0; i < battleZones.length; i++) {
             const battleZone = battleZones[i]
+            const overlappingArea = 
+            (Math.min(
+                player.position.x + player.width,
+                battleZone.position.x + battleZone.width
+                ) - 
+                Math.max(player.position.x, battleZone.position.x)) *
+                    (Math.min(
+                        player.position.y + player.height, 
+                        battleZone.position.y + battleZone.height
+                    ) - 
+                Math.max(player.position.y, battleZone.position.y))
+
+                    //finding width of a small overlapping rectange when touching battle
             if (
                 rectangularCollision({
                     rectangle1: player,
                     rectangle2: battleZone
-                })
+                }) &&
+                overlappingArea > (player.width * player.height) / 2
+                && Math.random() < .06
             ) {
-                console.log('battle zone collision');
+                console.log('activate battle');
+                battle.initiated = true
                 break
             }
         }
     }
 
-let moving = true
-player.moving = false
 if (keys.w.pressed && lastKey === 'w') {
     player.moving = true
     player.image = player.sprites.up
