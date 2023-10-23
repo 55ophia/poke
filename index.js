@@ -347,8 +347,8 @@ const mushroomImage = new Image()
 mushroomImage.src = "./images/shroom.png"
 const mushroom = new Sprite({
   position: {
-    x: 800,
-    y: 100
+    x: 760,
+    y: 55
   },
   image:mushroomImage,
   frames: {
