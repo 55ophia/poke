@@ -377,13 +377,13 @@ const dragon = new Sprite({
 
 function animateBattle() {
     window.requestAnimationFrame(animateBattle)
-    battleBackground.draw()
-    mushroom.draw()
-    dragon.draw()
+   battleBackground.draw()
+   mushroom.draw()
+   dragon.draw()
 }
 
 // animate()
-animateBattle()
+ animateBattle()
 
 let lastKey = ''
 window.addEventListener("keydown", (e) => {
