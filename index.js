@@ -84,7 +84,8 @@ const player = new Sprite({
     },
     image: playerDown,
     frames: {
-        max: 4
+        max: 4,
+        hold: 10,
     },
     sprites: {
         up: playerUp,
@@ -161,7 +162,7 @@ function animate() {
     foreground.draw()
     
      let moving = true
-     player.moving = false
+     player.animate = false
 
 
     if (battle.initiated) return
@@ -223,7 +224,7 @@ function animate() {
     }
 
 if (keys.w.pressed && lastKey === 'w') {
-    player.moving = true
+    player.animate = true
     player.image = player.sprites.up
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
@@ -249,7 +250,7 @@ if (keys.w.pressed && lastKey === 'w') {
             movable.position.y += 3
         })
 } else if (keys.a.pressed && lastKey === 'a') {
-    player.moving = true
+    player.animate = true
     player.image = player.sprites.left
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
@@ -275,7 +276,7 @@ if (keys.w.pressed && lastKey === 'w') {
      movable.position.x += 3
   })
 } else if (keys.s.pressed && lastKey === 's') {
-    player.moving = true
+    player.animate = true
     player.image = player.sprites.down
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
@@ -302,7 +303,7 @@ if (keys.w.pressed && lastKey === 'w') {
   })
 } else if (keys.d.pressed && lastKey === 'd') {
     for (let i = 0; i < boundaries.length; i++) {
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.right
         const boundary = boundaries[i]
         if (
@@ -330,7 +331,6 @@ if (keys.w.pressed && lastKey === 'w') {
 }
 
 
-//animate()
 
 const battleBackgroundImage = new Image()
 battleBackgroundImage.src = "./images/grassbattle.png"
@@ -343,11 +343,46 @@ const battleBackground = new Sprite ({
     image: battleBackgroundImage
 })
 
+const mushroomImage = new Image()
+mushroomImage.src = "./images/mushroom.png"
+const mushroom = new Sprite({
+  position: {
+    x: 800,
+    y: 100
+  },
+  image:mushroomImage,
+  frames: {
+    max: 4,
+    hold: 25,
+  },
+  animate: true
+})
+
+const dragonImage = new Image()
+dragonImage.src = "./images/dragon.png"
+const dragon = new Sprite({
+  position: {
+    x: 280,
+    y: 325
+  },
+  image: dragonImage,
+  frames: {
+    max: 4,
+    hold: 25,
+  },
+  animate: true
+})
+
+
+
 function animateBattle() {
     window.requestAnimationFrame(animateBattle)
     battleBackground.draw()
+    mushroom.draw()
+    dragon.draw()
 }
 
+// animate()
 animateBattle()
 
 let lastKey = ''
