@@ -1,11 +1,6 @@
 const canvas = document.querySelector("canvas")
 const c = canvas.getContext("2d")
 
-gsap.to("#overlappingDiv", {
-   opacity: 1, 
-   repeat: 2,
-})
-
 canvas.width = 1024
 canvas.height = 576
 
@@ -154,7 +149,7 @@ const battle = {
 
 
 function animate() {
-    window.requestAnimationFrame (animate) // you might need to change this
+    const animationId = window.requestAnimationFrame (animate) // you might need to change this
     background.draw()
     boundaries.forEach((boundary) => {
         boundary.draw()
@@ -167,7 +162,10 @@ function animate() {
     
      let moving = true
      player.moving = false
+
+
     if (battle.initiated) return
+
 //battleativae
     if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
         for (let i = 0; i < battleZones.length; i++) {
@@ -194,7 +192,31 @@ function animate() {
                 && Math.random() < .06
             ) {
                 console.log('activate battle');
+
+             //deactivage current
+                window.cancelAnimationFrame(animationId)
+
                 battle.initiated = true
+                gsap.to("#overlappingDiv", {
+                    opacity: 1, 
+                    repeat: 3,
+                    yoyo: true,
+                    duration: 0.4,
+                    onComplete() {
+                        gsap.to('#overlappingDiv',{
+                            opacity: 1,
+                            duration: 0.4,
+                            onComplete() {
+                                animateBattle()
+                                gsap.to('#overlappingDiv',{
+                                    opacity: 0,
+                                    duration: 0.4,
+                                })
+                            }
+                            
+                        })
+                    }
+                })
                 break
             }
         }
@@ -308,12 +330,25 @@ if (keys.w.pressed && lastKey === 'w') {
 }
 
 
-animate()
+//animate()
 
+const battleBackgroundImage = new Image()
+battleBackgroundImage.src = "./images/grassbattle.png"
 
+const battleBackground = new Sprite ({
+    position: {
+    x: 0,
+    y: 0,
+    },
+    image: battleBackgroundImage
+})
 
+function animateBattle() {
+    window.requestAnimationFrame(animateBattle)
+    battleBackground.draw()
+}
 
-
+animateBattle()
 
 let lastKey = ''
 window.addEventListener("keydown", (e) => {
