@@ -1,7 +1,6 @@
 const canvas = document.querySelector("canvas")
 const c = canvas.getContext("2d")
 
-
 canvas.width = 1024
 canvas.height = 576
 
@@ -63,8 +62,6 @@ image.src = "./images/bg.png"
 const foregroundImage = new Image()
 foregroundImage.src = "./images/foreground.png"
 
-
-
 const playerDown = new Image()
 playerDown.src = "./images/down.png"
 
@@ -87,7 +84,8 @@ const player = new Sprite({
     },
     image: playerDown,
     frames: {
-        max: 4
+        max: 4,
+        hold: 10,
     },
     sprites: {
         up: playerUp,
@@ -146,8 +144,13 @@ function rectangularCollision({rectangle1, rectangle2}) {
     
     )
 }
+const battle = {
+    initiated: false
+}
+
+
 function animate() {
-    window.requestAnimationFrame (animate) // you might need to change this
+    const animationId = window.requestAnimationFrame (animate) // you might need to change this
     background.draw()
     boundaries.forEach((boundary) => {
         boundary.draw()
@@ -157,26 +160,71 @@ function animate() {
     })
     player.draw()
     foreground.draw()
+    
+     let moving = true
+     player.animate = false
 
+
+    if (battle.initiated) return
+
+//battleativae
     if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
         for (let i = 0; i < battleZones.length; i++) {
             const battleZone = battleZones[i]
+            const overlappingArea = 
+            (Math.min(
+                player.position.x + player.width,
+                battleZone.position.x + battleZone.width
+                ) - 
+                Math.max(player.position.x, battleZone.position.x)) *
+                    (Math.min(
+                        player.position.y + player.height, 
+                        battleZone.position.y + battleZone.height
+                    ) - 
+                Math.max(player.position.y, battleZone.position.y))
+
+                    //finding width of a small overlapping rectange when touching battle
             if (
                 rectangularCollision({
                     rectangle1: player,
                     rectangle2: battleZone
-                })
+                }) &&
+                overlappingArea > (player.width * player.height) / 2
+                && Math.random() < .06
             ) {
-                console.log('battle zone collision');
+                console.log('activate battle');
+
+             //deactivage current
+                window.cancelAnimationFrame(animationId)
+
+                battle.initiated = true
+                gsap.to("#overlappingDiv", {
+                    opacity: 1, 
+                    repeat: 3,
+                    yoyo: true,
+                    duration: 0.4,
+                    onComplete() {
+                        gsap.to('#overlappingDiv',{
+                            opacity: 1,
+                            duration: 0.4,
+                            onComplete() {
+                                animateBattle()
+                                gsap.to('#overlappingDiv',{
+                                    opacity: 0,
+                                    duration: 0.4,
+                                })
+                            }
+                            
+                        })
+                    }
+                })
                 break
             }
         }
     }
 
-let moving = true
-player.moving = false
 if (keys.w.pressed && lastKey === 'w') {
-    player.moving = true
+    player.animate = true
     player.image = player.sprites.up
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
@@ -202,7 +250,7 @@ if (keys.w.pressed && lastKey === 'w') {
             movable.position.y += 3
         })
 } else if (keys.a.pressed && lastKey === 'a') {
-    player.moving = true
+    player.animate = true
     player.image = player.sprites.left
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
@@ -228,7 +276,7 @@ if (keys.w.pressed && lastKey === 'w') {
      movable.position.x += 3
   })
 } else if (keys.s.pressed && lastKey === 's') {
-    player.moving = true
+    player.animate = true
     player.image = player.sprites.down
     for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i]
@@ -255,7 +303,7 @@ if (keys.w.pressed && lastKey === 'w') {
   })
 } else if (keys.d.pressed && lastKey === 'd') {
     for (let i = 0; i < boundaries.length; i++) {
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.right
         const boundary = boundaries[i]
         if (
@@ -283,12 +331,59 @@ if (keys.w.pressed && lastKey === 'w') {
 }
 
 
-animate()
+
+const battleBackgroundImage = new Image()
+battleBackgroundImage.src = "./images/grassbattle.png"
+
+const battleBackground = new Sprite ({
+    position: {
+    x: 0,
+    y: 0,
+    },
+    image: battleBackgroundImage
+})
+
+const mushroomImage = new Image()
+mushroomImage.src = "./images/shroom.png"
+const mushroom = new Sprite({
+  position: {
+    x: 760,
+    y: 55
+  },
+  image:mushroomImage,
+  frames: {
+    max: 4,
+    hold: 25,
+  },
+  animate: true
+})
+
+const dragonImage = new Image()
+dragonImage.src = "./images/dragon.png"
+const dragon = new Sprite({
+  position: {
+    x: 280,
+    y: 325
+  },
+  image: dragonImage,
+  frames: {
+    max: 4,
+    hold: 25,
+  },
+  animate: true
+})
 
 
 
+function animateBattle() {
+    window.requestAnimationFrame(animateBattle)
+  battleBackground.draw()
+  mushroom.draw()
+  dragon.draw()
+}
 
-
+//animate()
+animateBattle()
 
 let lastKey = ''
 window.addEventListener("keydown", (e) => {
