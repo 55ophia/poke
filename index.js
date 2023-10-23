@@ -344,7 +344,7 @@ const battleBackground = new Sprite ({
 })
 
 const mushroomImage = new Image()
-mushroomImage.src = "./images/mushroom.png"
+mushroomImage.src = "./images/shroom.png"
 const mushroom = new Sprite({
   position: {
     x: 800,
