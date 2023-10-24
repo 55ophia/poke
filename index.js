@@ -386,14 +386,12 @@ function animateBattle() {
 //animate()
 animateBattle()
 
+//our event listeners for our buttons (attack)
 document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', () => {
+    button.addEventListener('click', (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML]
       Dracogon.attack({ 
-        attack:{
-        name: 'Wing Slap',
-        damage: 15,
-        type: 'Wind'
-      },
+        attack: selectedAttack,
       recipient: Shroomy
     })
     })
