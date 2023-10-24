@@ -385,6 +385,20 @@ function animateBattle() {
 //animate()
 animateBattle()
 
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => {
+      Dracogon.attack({ 
+        attack:{
+        name: 'Wing Slap',
+        damage: 15,
+        type: 'Wind'
+      },
+      recipient: Shroomy
+    })
+    })
+})
+
+
 let lastKey = ''
 window.addEventListener("keydown", (e) => {
     switch (e.key) {
