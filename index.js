@@ -375,12 +375,16 @@ const dragon = new Sprite({
 })
 
 
-
+const renderedSprites = []
 function animateBattle() {
     window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
   mushroom.draw()
   dragon.draw()
+
+  renderedSprites.forEach(sprites => {
+    sprites.draw()
+  })
 }
 
 //animate()
@@ -392,7 +396,8 @@ document.querySelectorAll('button').forEach(button => {
     const selectedAttack = attacks[e.currentTarget.innerHTML]
       Dracogon.attack({ 
         attack: selectedAttack,
-      recipient: Shroomy
+      recipient: Shroomy,
+      renderedSprites
     })
     })
 })

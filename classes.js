@@ -50,9 +50,34 @@ if(this.frames.elapsed % this.frames.hold === 0) {
         }
     }
 
-     attack({attack, recipient}) {
+     attack({attack, recipient, renderedSprites}) {
        switch (attack.name) {
-         case 'FireBreath':
+         case 'FlameBreath':
+          const flamebreathImage= new Image()
+          flamebreathImage.src = './img/fireball.png'
+         const flameBreath = new Sprite ({
+           position:{
+            x: this.position.x,
+            y: this.position.y,
+          },
+          image: flamebreathImage,
+          frames: {
+            max: 4,
+            hold: 10 
+          },
+          animate: true
+         })
+
+         renderedSprites.push(flamebreath)
+
+         gsap.to(firebreath.position,{
+           x: recipient.position.x,
+           y: recipient.position.y,
+           onComplete: () => {
+            renderedSprites.pop()
+           }
+         })
+         break
          case 'WingSlap':
           const tl = gsap.timeline()
 
