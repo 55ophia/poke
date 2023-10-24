@@ -355,7 +355,8 @@ const mushroom = new Sprite({
     max: 4,
     hold: 25,
   },
-  animate: true
+  animate: true,
+  isEnemy: true
 })
 
 const dragonImage = new Image()
