@@ -7,6 +7,9 @@ class Sprite {
       sprites,
       animate = false,
       isEnemy = false, 
+      rotation = 0,
+      name,
+      attacks
     }) {
       this.position = position
       this.image = image
@@ -21,6 +24,9 @@ class Sprite {
       this.opacity = 1
       this.health = 100
       this.isEnemy = isEnemy
+      this.rotation = rotation
+      this.name = name
+      this.attacks = attacks
     }
   
   
@@ -44,23 +50,31 @@ class Sprite {
             this.frames.elapsed++
         }
         
-if(this.frames.elapsed % this.frames.hold === 0) {
+if (this.frames.elapsed % this.frames.hold === 0) {
       if (this.frames.val < this.frames.max - 1) this.frames.val++
         else this.frames.val = 0
         }
     }
 
-     attack({attack, recipient, renderedSprites}) {
+     attack ({ attack, recipient, renderedSprites }) {
+      let healthBar = "#enemyHealthBar"
+      if (this.isEnemy) healthBar = "#playerHealthBar"
+      let test = 'test'
+      test = attack.damage
+      this.health -= attack.damage
+
+      
+
        switch (attack.name) {
-         case 'flameBreath':
-          const flameBreathImage= new Image()
-          flameBreathImage.src = './images/fireball.png'
-         const flameBreath = new Sprite ({
-           position:{
+         case 'Flamebreath':
+          const flamebreathImage = new Image()
+          flamebreathImage.src = './images/fireball.png'
+         const flamebreath = new Sprite({
+           position: {
             x: this.position.x,
             y: this.position.y,
           },
-          image: flameBreathImage,
+          image: flamebreathImage,
           frames: {
             max: 4,
             hold: 10 
@@ -68,36 +82,51 @@ if(this.frames.elapsed % this.frames.hold === 0) {
           animate: true
          })
 
-         renderedSprites.push(flameBreath)
+         renderedSprites.splice(1, 0, flamebreath)
 
-         gsap.to(fireBreath.position,{
+         gsap.to(flamebreath.position, {
            x: recipient.position.x,
            y: recipient.position.y,
            onComplete: () => {
-            renderedSprites.pop()
+          // enemy hit or somn
+          gsap.to(healthBar, {
+            width: recipient.health + '%'
+          })
+
+          gsap.to(recipient.position, {
+            x: recipient.position.x + 10,
+            yoyo: true,
+            repeat: 5,
+            duration: 0.08
+          })
+
+          gsap.to(recipient, {
+            opacity: 0,
+            repeat: 5,
+            yoyo: true,
+            duration: 0.08
+          })
+          renderedSprites.splice(1, 1)
+
            }
          })
          break
          case 'WingSlap':
           const tl = gsap.timeline()
-
-          this.health -= attack.damage
  
           let movementDistance = 20
-          if(this.isEnemy) movementDistance = -20
-   
-          let healthBar = "#enemyHealthBar"
-          if (this.isEnemy) healthBar = "#playerHealthBar"
+          if (this.isEnemy) movementDistance = -20
    
           tl.to(this.position, {
             x: this.position.x - movementDistance
-          }).to(this.position, {
+          })
+            .to(this.position, {
             x: this.position.x + movementDistance * 2,
             duration: 0.1,
             onComplete: () => {
               //Enemy actually gets hit
-              gsap.to (healthBar,{
-                width: this.health + '%'
+              gsap.to(healthBar, {
+                width: recipient.health + '%'
               })
               gsap.to(recipient.position, {
                 x: recipient.position.x + 10,
@@ -136,3 +165,5 @@ if(this.frames.elapsed % this.frames.hold === 0) {
            c.fillRect(this.position.x, this.position.y, this.width, this.height)
       }
     }
+
+   

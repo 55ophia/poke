@@ -55,7 +55,6 @@ battleZonesMap.forEach((row, i) => {
   })
 })
 
-console.log(battleZones)
 const image = new Image()
 image.src = "./images/bg.png"
 
@@ -343,14 +342,14 @@ const battleBackground = new Sprite ({
     image: battleBackgroundImage
 })
 
-const mushroomImage = new Image()
-mushroomImage.src = "./images/shroom.png"
-const mushroom = new Sprite({
+const shroomyImage = new Image()
+shroomyImage.src = "./images/shroom.png"
+const shroomy = new Sprite({
   position: {
     x: 760,
     y: 55
   },
-  image:mushroomImage,
+  image:shroomyImage,
   frames: {
     max: 4,
     hold: 25,
@@ -359,14 +358,14 @@ const mushroom = new Sprite({
   isEnemy: true
 })
 
-const dragonImage = new Image()
-dragonImage.src = "./images/dragon.png"
-const dragon = new Sprite({
+const dracogonImage = new Image()
+dracogonImage.src = "./images/dracogon.png"
+const dracogon = new Sprite({
   position: {
     x: 280,
-    y: 325
+    y: 305
   },
-  image: dragonImage,
+  image: dracogonImage,
   frames: {
     max: 4,
     hold: 25,
@@ -375,35 +374,35 @@ const dragon = new Sprite({
 })
 
 
-const renderedSprites = []
+const renderedSprites = [shroomy, dracogon]
 function animateBattle() {
-    window.requestAnimationFrame(animateBattle)
+  window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
-  mushroom.draw()
-  dragon.draw()
 
-  renderedSprites.forEach(sprites => {
-    sprites.draw()
+  renderedSprites.forEach((sprite) => {
+    sprite.draw()
   })
 }
 
 //animate()
 animateBattle()
 
-let Dracogon
-
 
 
 //our event listeners for our buttons (attack)
-document.querySelectorAll('button').forEach(button => {
+document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (e) => {
+
+        console.log(attacks)
+        console.log(e.currentTarget.innerHTML)
     const selectedAttack = attacks[e.currentTarget.innerHTML]
-      Dracogon.attack({ 
+    console.log(selectedAttack)
+      dracogon.attack({ 
         attack: selectedAttack,
-      recipient: Shroomy,
+      recipient: shroomy,
       renderedSprites
     })
-    })
+  })
 })
 
 
@@ -449,6 +448,3 @@ window.addEventListener("keyup", (e) => {
              break
     }
 })
-
-
-
