@@ -2,10 +2,10 @@ const attacks = {
     WingSlap: {
         name: 'Wing Slap',
         damage: 15,
-        type: "Wind"
+        type: "Normal"
     },
-    Flamebreath: {
-        name: 'Flamebreat',
+    FlameBreath: {
+        name: 'Flamebreath',
         damage: 25,
         type: "Fire"
     }
