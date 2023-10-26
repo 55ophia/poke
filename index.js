@@ -374,11 +374,11 @@ const dracogon = new Sprite({
 })
 
 
-const renderedSprites = [shroomy, dracogon]
+const renderedSprites = [dracogon, shroomy]
 function animateBattle() {
   window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
-
+ 
   renderedSprites.forEach((sprite) => {
     sprite.draw()
   })
