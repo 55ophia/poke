@@ -52,15 +52,15 @@ if(this.frames.elapsed % this.frames.hold === 0) {
 
      attack({attack, recipient, renderedSprites}) {
        switch (attack.name) {
-         case 'FlameBreath':
-          const flamebreathImage= new Image()
-          flamebreathImage.src = './img/fireball.png'
+         case 'flameBreath':
+          const flameBreathImage= new Image()
+          flameBreathImage.src = './images/fireball.png'
          const flameBreath = new Sprite ({
            position:{
             x: this.position.x,
             y: this.position.y,
           },
-          image: flamebreathImage,
+          image: flameBreathImage,
           frames: {
             max: 4,
             hold: 10 
@@ -68,9 +68,9 @@ if(this.frames.elapsed % this.frames.hold === 0) {
           animate: true
          })
 
-         renderedSprites.push(flamebreath)
+         renderedSprites.push(flameBreath)
 
-         gsap.to(firebreath.position,{
+         gsap.to(fireBreath.position,{
            x: recipient.position.x,
            y: recipient.position.y,
            onComplete: () => {

@@ -390,6 +390,10 @@ function animateBattle() {
 //animate()
 animateBattle()
 
+let Dracogon
+
+
+
 //our event listeners for our buttons (attack)
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', (e) => {
