@@ -21,6 +21,14 @@ our entire game runs on the very front page of the game, so no need to worry abo
 
 Happy coding!
 
+## things we learned ##
+... maybe the things we learned were the friends along the way
+the super code in JS is about calling to a parent class about its constructors, you will see it frequently in js classes and other stuff.
+
+the use of classes hurray we are making lots of classes for sprites and movements and collisions!
+
+whenever player hits collisions, they stop! hence the character will not run off the entire map hururay. 
+
 ## our aspirations at the start ##
 To be honest, we were planning on going into the game blindly, and somehow coding everything ourselves. But, this was obviously impossible because we didn't learn any code on our own and we were expected to produce a game. 
 
