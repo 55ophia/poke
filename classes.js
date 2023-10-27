@@ -10,7 +10,7 @@ class Sprite {
       scale = 1
     }) {
       this.position = position
-      this.image = new image()
+      this.image = new Image()
       this.frames = {...frames, val: 0, elapsed: 0}
       
       this.image.onload = () => {
@@ -23,7 +23,6 @@ class Sprite {
       this.sprites = sprites
       this.opacity = 1
       this.health = 100
-      this.isEnemy = isEnemy
       this.rotation = rotation
      
       this.attacks = attacks
