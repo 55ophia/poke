@@ -5,13 +5,12 @@ class Sprite {
       image,
       frames = { max: 1, hold: 10 }, 
       sprites,
-      animate = false,
-      isEnemy = false, 
+      animate = false, 
       rotation = 0,
       scale = 1
     }) {
       this.position = position
-      this.image = image
+      this.image = new image()
       this.frames = {...frames, val: 0, elapsed: 0}
       
       this.image.onload = () => {
@@ -86,12 +85,57 @@ if (this.frames.elapsed % this.frames.hold === 0) {
         else this.frames.val = 0
         }
     }
+  }
+class Monster extends Sprite {
+    constructor({
+      position,
+      velocity,
+      image,
+      frames = { max: 1, hold: 10},
+      sprites,
+      animate = false,
+      rotation = 0,
+      isEnemy = false,
+      name,
+      attacks
+    }) {
+      super({
+        position,
+        velocity,
+        image,
+        frames,
+        sprites,
+        animate,
+        rotation
+      })
+      this.health = 100
+      this.isEnemy = isEnemy
+      this.name = name
+      this.attacks = attacks
+  }
+
+  faint() {
+    document.querySelector('#dialogueBox'). innerHTML = this.name + 'fainted!'
+    gsap.to(thisposition, {
+      y: this.position. y + 20
+    })
+      gsap.to(this, {
+        opacity: 0
+      })
+    }
+  
 
      attack ({ attack, recipient, renderedSprites }) {
+      document.querySelector('#dialogueBox').style.display = 'block'
+      document. querySelector('#dialogueBox').innerHTML = 
+      this.name + 'used' + attack.name
       let healthBar = "#enemyHealthBar"
       if (this.isEnemy) healthBar = "#playerHealthBar"
       
-      this.health -= attack.damage
+      let rotation = 1
+      if (this.isEnemy) rotation = -2.2
+      
+      recipient.health -= attack.damage
 
       
 
