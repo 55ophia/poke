@@ -20,11 +20,11 @@ katie added a spirt
 ## wed
 sophia started the code 
 andrew and aanya worked on spritres
-sophjia started coding
+sophia started coding
 ## thru
 aanya fixed sprite' background 
 sophia uploaed the background 
-deeshi started her curby spirt 
+deeshi started her kirby spirt 
 ## fri
 we planned our goals for next week and who does what 
 we brainstromed more ideas to improve our game
