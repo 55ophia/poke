@@ -2,10 +2,10 @@
 toc: false
 comments: true
 layout: post
-title: Week 3 Plan
+title: Week 2 Plan
 description: heres wat we did
 type: plans
-courses: { compsci: {week: 7} }
+courses: { compsci: {week: 2} }
 permalink: /plans/week3
 ---
 
