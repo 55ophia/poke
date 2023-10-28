@@ -191,7 +191,7 @@ function animate() {
                 overlappingArea > (player.width * player.height) / 2
                 && Math.random() < .06
             ) {
-                console.log('activate battle');
+
 
              //deactivage current
                 window.cancelAnimationFrame(animationId)
@@ -330,80 +330,6 @@ if (keys.w.pressed && lastKey === 'w') {
 }
 
 
-
-const battleBackgroundImage = new Image()
-battleBackgroundImage.src = "./images/grassbattle.png"
-
-const battleBackground = new Sprite ({
-    position: {
-    x: 0,
-    y: 0,
-    },
-    image: battleBackgroundImage
-})
-
-const shroomyImage = new Image()
-shroomyImage.src = "./images/shroom.png"
-const shroomy = new Sprite({
-  position: {
-    x: 760,
-    y: 55
-  },
-  image:shroomyImage,
-  frames: {
-    max: 4,
-    hold: 25,
-  },
-  animate: true,
-  isEnemy: true
-})
-
-const dracogonImage = new Image()
-dracogonImage.src = "./images/dracogon.png"
-const dracogon = new Sprite({
-  position: {
-    x: 280,
-    y: 305
-  },
-  image: dracogonImage,
-  frames: {
-    max: 4,
-    hold: 25,
-  },
-  animate: true
-})
-
-
-const renderedSprites = [dracogon, shroomy]
-function animateBattle() {
-  window.requestAnimationFrame(animateBattle)
-  battleBackground.draw()
- 
-  renderedSprites.forEach((sprite) => {
-    sprite.draw()
-  })
-}
-
-//animate()
-animateBattle()
-
-
-
-//our event listeners for our buttons (attack)
-document.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', (e) => {
-
-        console.log(attacks)
-        console.log(e.currentTarget.innerHTML)
-    const selectedAttack = attacks[e.currentTarget.innerHTML]
-    console.log(selectedAttack)
-      dracogon.attack({ 
-        attack: selectedAttack,
-      recipient: shroomy,
-      renderedSprites
-    })
-  })
-})
 
 
 let lastKey = ''

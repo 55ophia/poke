@@ -13,7 +13,7 @@ const monsters = {
     },
     animate: true,
     name: 'Dracogon',
-    attacks: [attacks.Wingslap, attacks.Flamebreath]
+    attacks: [attacks.WingSlap, attacks.FlameBreath]
     },
     Shroomy: {
         position: {
@@ -30,6 +30,6 @@ const monsters = {
         animate: true,
         isEnemy: true,
         name: 'Shroomy',
-        attacks: [attacks.Wingslap, attacks.Flamebreath]
+        attacks: [attacks.WingSlap, attacks.FlameBreath]
     }
     }

@@ -22,10 +22,8 @@ class Sprite {
       this.animate = animate
       this.sprites = sprites
       this.opacity = 1
-      this.health = 100
       this.rotation = rotation
-     
-      this.attacks = attacks
+    
       this.scale = scale
     }
   
@@ -39,7 +37,7 @@ class Sprite {
       c.rotate(this.rotation)
       c.translate(
         -this.position.x - this.width / 2,
-        -this.position.y - this. height / 2
+        -this.position.y - this.height / 2
       )
       c.globalAlpha = this.opacity
       
@@ -127,7 +125,7 @@ class Monster extends Sprite {
      attack ({ attack, recipient, renderedSprites }) {
       document.querySelector('#dialogueBox').style.display = 'block'
       document. querySelector('#dialogueBox').innerHTML = 
-      this.name + 'used' + attack.name
+      this.name + ' used ' + attack.name
       let healthBar = "#enemyHealthBar"
       if (this.isEnemy) healthBar = "#playerHealthBar"
       
@@ -139,7 +137,7 @@ class Monster extends Sprite {
       
 
        switch (attack.name) {
-         case 'Flamebreath':
+         case 'FlameBreath':
           const flamebreathImage = new Image()
           flamebreathImage.src = './images/fireball.png'
          const flamebreath = new Sprite({
@@ -152,7 +150,8 @@ class Monster extends Sprite {
             max: 4,
             hold: 10 
           },
-          animate: true
+          animate: true,
+          rotation
          })
 
          renderedSprites.splice(1, 0, flamebreath)
@@ -215,7 +214,8 @@ class Monster extends Sprite {
                  duration: 0.08
                 })  
               }
-          }).to(this.position, {
+          })
+          .to(this.position, {
             x: this.position.x 
           })
          break

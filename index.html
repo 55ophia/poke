@@ -38,7 +38,8 @@ button:hover {
      bottom: 0; 
      left: 0;
      opacity: 0; 
-     pointer-events: none;">
+     pointer-events: none;
+     z-index: 10;">
 
     </div>
    <!--Representing enemy Pokemon- Shroomy -->
@@ -90,7 +91,7 @@ button:hover {
       right: 0;
     "></div>
     </div>
-  </div>
+</div>
       <canvas></canvas>
       <div style="
       background-color: white; 
@@ -103,13 +104,27 @@ button:hover {
        display: flex;
        "
      >
+     <div
+     id="dialogueBox"
+      style="
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: white;
+      color: black;
+      padding: 12px;
+      display: none;
+      font-size: 30px;
+      cursor: pointer;">
+     asldjflsd
+    </div>
     <div style="
     width: 66.66%;
     display: grid;
     grid-template-columns: repeat(2, 1fr)"> 
       <button>FlameBreath</button>
-      <button>Roar</button>
-      <button>Bite</button>
       <button>WingSlap</button>
     </div>
     <div style="
@@ -120,9 +135,10 @@ button:hover {
     border-left: 4px black solid;
     "
     >
-    <h1 style="font-size: 20px; color: black;">Attack Type</h1>
+    <h1 id="attackType" style="font-size: 20px; color: black;">Attack Type</h1>
     </div>
   </div>  
+</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="data/battleZones.js"></script>
@@ -131,4 +147,4 @@ button:hover {
 <script src="data/monsters.js"></script>
 <script src="classes.js"></script>
 <script src="index.js"></script>
-
+<script src="battleScene.js"></script>
