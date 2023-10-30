@@ -60,6 +60,15 @@ document.querySelectorAll('button').forEach((button) => {
      })
     })
   })
+
+ button.addEventListener('mouseenter', (e) => {
+  const selectedAttack = attacks[e.currentTarget.innerHTML]
+  document.querySelector('#attackType').innerHTML = selectedAttack.type
+  document.querySelector('#attackType').style.color = selectedAttack.color
+  console.log('go')
+  
+ }) 
+
 })
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
   if (queue.length > 0) {
