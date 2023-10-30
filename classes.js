@@ -14,7 +14,7 @@ class Sprite {
       this.frames = {...frames, val: 0, elapsed: 0}
       
       this.image.onload = () => {
-      this.width = this.image.width / this.frames.max
+      this.width = (this.image.width / this.frames.max) * scale
       this.height = this.image.height * scale
       }
       this.image.src = image.src
@@ -22,8 +22,8 @@ class Sprite {
       this.animate = animate
       this.sprites = sprites
       this.opacity = 1
+
       this.rotation = rotation
-    
       this.scale = scale
     }
   
@@ -31,8 +31,8 @@ class Sprite {
   draw() {
       c.save()
       c.translate(
-        this.position.x + this.width /2,
-        this.position.y + this.height/2
+        this.position.x + this.width / 2,
+        this.position.y + this.height / 2
       )
       c.rotate(this.rotation)
       c.translate(
@@ -182,6 +182,7 @@ class Monster extends Sprite {
 
            }
          })
+
          break
          case 'WingSlap':
           const tl = gsap.timeline()
@@ -213,6 +214,7 @@ class Monster extends Sprite {
                  yoyo: true,
                  duration: 0.08
                 })  
+                
               }
           })
           .to(this.position, {

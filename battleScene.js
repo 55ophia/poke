@@ -9,41 +9,20 @@ const battleBackground = new Sprite ({
     image: battleBackgroundImage
 })
 
-const shroomyImage = new Image()
-shroomyImage.src = "./images/shroom.png"
-const shroomy = new Sprite({
-  position: {
-    x: 760,
-    y: 55
-  },
-  image:shroomyImage,
-  frames: {
-    max: 4,
-    hold: 25,
-  },
-  animate: true,
-  isEnemy: true,
-  name: 'Shroomy'
-})
 
-const dracogonImage = new Image()
-dracogonImage.src = "./images/dracogon.png"
-const dracogon = new Monster({
-  position: {
-    x: 280,
-    y: 305
-  },
-  image: dracogonImage,
-  frames: {
-    max: 4,
-    hold: 25,
-  },
-  animate: true,
-  name: 'Dracogon'
-})
+const shroomy = new Monster(monsters.Shroomy)
+const dracogon = new Monster(monsters.Dracogon)
+
 
 
 const renderedSprites = [shroomy, dracogon]
+
+dracogon.attacks.forEach((attack) => {
+  const button = document.createElement('button')
+  button.innerHTML = attack.name
+  document.querySelector('#attacksBox').append(button)
+})
+
 function animateBattle() {
   window.requestAnimationFrame(animateBattle)
   battleBackground.draw()
@@ -57,21 +36,34 @@ function animateBattle() {
 animateBattle()
 
 
+const queue = []
 
 //our event listeners for our buttons (attack)
 document.querySelectorAll('button').forEach((button) => {
     button.addEventListener('click', (e) => {
     const selectedAttack = attacks[e.currentTarget.innerHTML]
-
       dracogon.attack({ 
         attack: selectedAttack,
+      recipient: shroomy,
+      renderedSprites
+    })
+
+    //enemy attk
+   const randomAttack =
+    shroomy.attacks[Math.floor(Math.random() * shroomy.attacks.length)]
+
+    queue.push(() => {
+      shroomy.attack({ 
+      attack: randomAttack,
       recipient: dracogon,
       renderedSprites
+     })
     })
   })
 })
-
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
-    e.currentTarget.style.display = 'none'
-  console.log("clicked dialog")  
+  if (queue.length > 0) {
+    queue[0]()
+    queue.shift()
+  } else e.currentTarget.style.display = 'none'
 })

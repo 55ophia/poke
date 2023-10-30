@@ -30,6 +30,6 @@ const monsters = {
         animate: true,
         isEnemy: true,
         name: 'Shroomy',
-        attacks: [attacks.WingSlap, attacks.FlameBreath]
+        attacks: [attacks.WingSlap]
     }
     }
