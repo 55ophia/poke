@@ -48,19 +48,25 @@ document.querySelectorAll('button').forEach((button) => {
       renderedSprites
     })
 
-    //enemy attk
-   const randomAttack =
+    if(shroomy.health <= 0){
+      queue.push(() => {
+       shroomy.faint()
+    })
+    
+    return
+    }
+    //shroomy or enemy attacks here
+    const randomAttack =
     shroomy.attacks[Math.floor(Math.random() * shroomy.attacks.length)]
-
+    
     queue.push(() => {
       shroomy.attack({ 
       attack: randomAttack,
       recipient: dracogon,
       renderedSprites
-     })
     })
   })
-
+})
  button.addEventListener('mouseenter', (e) => {
   const selectedAttack = attacks[e.currentTarget.innerHTML]
   document.querySelector('#attackType').innerHTML = selectedAttack.type
