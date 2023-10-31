@@ -16,7 +16,7 @@ let renderedSprites
 let battleAnimationId
 let queue
 
-function initiBattle() {
+function initBattle() {
   document.querySelector('#userInterface').style.display = 'block'
   document.querySelector('#dialogueBox').style.display = 'none'
   document.querySelector('#enemyHealthBar').style.width = '100%'
@@ -50,7 +50,7 @@ document.querySelectorAll('button').forEach((button) => {
   queue.push(() => {
     // fade back to black budad buda buda bum
     WebGLSampler.toString('#overlappingDiv', {
-      opacity: 1
+      opacity: 1,
       onComplete: () => {
         cancelAnimationFrame(battleAnimationID)
         animate()
