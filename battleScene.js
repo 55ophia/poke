@@ -49,19 +49,18 @@ document.querySelectorAll('button').forEach((button) => {
   })
   queue.push(() => {
     // fade back to black budad buda buda bum
-    WebGLSampler.toString('#overlappingDiv', {
+    gsap.to('#overlappingDiv', {
       opacity: 1,
       onComplete: () => {
-        cancelAnimationFrame(battleAnimationID)
+        cancelAnimationFrame(battleAnimationId)
         animate()
         document.querySelector('#userInterface').style.display = "none"
-        WebGLSampler.to('#overlappingDiv', {
+        gsap.to('#overlappingDiv', {
           opacity: 0
         })
       }
     })
   })
-  return
   }
   //shroomy or enemy attacks here
   const randomAttack =
@@ -73,6 +72,26 @@ document.querySelectorAll('button').forEach((button) => {
     recipient: dracogon,
     renderedSprites
   })
+
+  if(dracogon.health <= 0) {
+    queue.push(() => {
+      dracogon.faint()
+    })
+    queue.push(() => {
+      // fade back to black budad buda buda bum
+      gsap.to('#overlappingDiv', {
+        opacity: 1,
+        onComplete: () => {
+          cancelAnimationFrame(battleAnimationId)
+          animate()
+          document.querySelector('#userInterface').style.display = "none"
+          gsap.to('#overlappingDiv', {
+            opacity: 0
+          })
+        }
+      })
+    })
+  }
 })
 })
 button.addEventListener('mouseenter', (e) => {

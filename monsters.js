@@ -1,8 +1,3 @@
-const dracogonImage = new Image()
-dracogonImage.src = "./images/dracogon.png"
-
-const shroomyImage = new Image()
-shroomyImage.src = "./images/shroom.png"
 
 const monsters = {
     Dracogon: {
@@ -10,7 +5,9 @@ const monsters = {
           x: 280,
           y: 305
         },
-        image: dracogonImage,
+        image: {
+          src: './images/dracogon.png'},
+      
         frames: {
           max: 4,
           hold: 25,
@@ -24,7 +21,9 @@ const monsters = {
           x: 760,
           y: 55
         },
-        image:shroomyImage,
+        image: {
+          src: './images/shroom.png'},
+
         frames: {
           max: 4,
           hold: 25,
