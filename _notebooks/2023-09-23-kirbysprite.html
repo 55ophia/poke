@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kirby Sprite</title>
+</head>
+<body>
+    <div id="kirbySprite"></div>
+
+    <script>
+        // Your Kirby ASCII art
+        var kirbyArt = `
+           (")__(")
+           <(o.o)>
+            _|_|_
+        `;
+
+        // Get the div element
+        var kirbyDiv = document.getElementById("kirbySprite");
+
+        // Set the inner HTML of the div to the ASCII art
+        kirbyDiv.innerHTML = "<pre>" + kirbyArt + "</pre>";
+<html>
+<head>
+    <title>Kirby Sprite Movement</title>
+    <style>
+        #kirbySprite {
+            position: relative;
+            left: 0;
+            transition: left 0.5s; /* Add a smooth transition effect */
+        }
+    </style>
+</head>
+<body>
+    <div id="kirbySprite">
+        <pre>
+           (")__(")
+           &lt;(o.o)&gt;
+            _|_|_
+        </pre>
+    </div>
+
+    <script>
+        var kirbyDiv = document.getElementById("kirbySprite");
+        var position = 0;
+
+        function moveKirby(direction) {
+            if (direction === 'left') {
+                position -= 20; // Adjust the value to control the distance moved
+            } else if (direction === 'right') {
+                position += 20; // Adjust the value to control the distance moved
+            }
+
+            kirbyDiv.style.left = position + 'px';
+        }
+
+        // Move Kirby left
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'ArrowLeft') {
+                moveKirby('left');
+            }
+        });
+
+        // Move Kirby right
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'ArrowRight') {
+                moveKirby('right');
+            }
+        });
+        <!DOCTYPE html>
+<html>
+<head>
+    <title>Idle Kirby Sprite</title>
+    <style>
+        #kirbySprite {
+            width: 100px;
+            height: 100px;
+            background-image: url('kirby.png'); /* Replace 'kirby.png' with your Kirby sprite image */
+            animation: kirbyIdle 1s infinite;
+        }
+
+        @keyframes kirbyIdle {
+            0%, 100% { background-position: 0 0; }
+            25% { background-position: -100px 0; }
+            50% { background-position: -200px 0; }
+            75% { background-position: -300px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div id="kirbySprite"></div>
+</body>
+</html>

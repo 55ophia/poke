@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+
+body {
+    color: #ffffff;
+    background-color: #1bafdb;
+}
+
+#start, #game-over {
+    font-family:Ariel, Helvectica, sans-serif;
+    color: #ffffff;
+    padding: 20px;
+    position: fixed;
+    top:50%;
+    left:50%;
+    margin-top: -100px;
+    margin-left: -100px;
+    height:200px;
+    width:250px;
+    text-align: center;
+}
+#start a, #game-over a {
+    border: 3px solid #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    display: block;
+    width: 200px;
+    text-align: center;
+    font-size: 2em;
+    display: inline-block;
+}
+
+#start a:hover, #game-over a:hover { background-color: #ffffff; color: #1bafdb; }
+</style>
+    <head>
+        <title><pokemon></title>
+        <media content="text/html;charset-utf-8" http-equiv="content-type">
+        <media content="utf-8" http-equiv="encoding">
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <div id="start" style=""display:none"></canvas>
+            <a href="#" onclick="startGame()">Start Game</a>
+        </div>
+        <div id="game-over" style="display:none">
+            <h1>Game Over</h1>
+            <a href="#" onclick="startGame()">Start Game</a>
+        </div>
+    </body>
+    <script>
+function startGame() {
+    let startDiv = document.getElementById("start");
+    let gameCanvas = document.getElementById("canvas");
+    startDiv.style.display = "none";
+    gameCanvas.style.display = "block";
+    start();
+}
+    </script>
+</html>

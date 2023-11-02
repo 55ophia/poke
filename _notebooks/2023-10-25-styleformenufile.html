@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title><Pong></title>
+        <media content="text/html;charset-utf-8" http-equiv="content-type">
+        <media content="utf-8" http-equiv="encoding">
+        <script src='fx.js'></script>
+        <script src='ball.js'></script>
+        <script src='paddle.js'></script>
+        <script src='game.js'></script>
+        <link rel="stylesheet" type="2023-08-25-startstopbutton" href="2023-08-25-startstopbutton.css"/>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <div id="start" style=""display:none"></canvas>
+            <a href="#" onclick="startGame()">Start Game</a>
+        </div>
+        <div id="game-over" style="display:none">
+            <h1>Game Over</h1>
+            <a href="#" onclick="startGame()">Start Game</a>
+        </div>
+    </body>
+    <script>
+function startGame() {
+    let startDiv = document.getElementById("start");
+    let gameCanvas = document.getElementById("canvas");
+    startDiv.style.display = "none";
+    gameCanvas.style.display = "block";
+    start();
+}
+    </script>
+</html>
