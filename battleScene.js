@@ -58,6 +58,8 @@ document.querySelectorAll('button').forEach((button) => {
         gsap.to('#overlappingDiv', {
           opacity: 0
         })
+
+        battle.initiated = false
       }
     })
   })
@@ -88,6 +90,8 @@ document.querySelectorAll('button').forEach((button) => {
           gsap.to('#overlappingDiv', {
             opacity: 0
           })
+
+          battle.initiated = false
         }
       })
     })
@@ -114,9 +118,9 @@ function animateBattle() {
   })
 }
 
-//animate()
-initBattle()
-animateBattle()
+animate()
+//initBattle()
+//animateBattle()
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
   if (queue.length > 0) {
